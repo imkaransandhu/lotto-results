@@ -46,6 +46,8 @@ const LottoResults = () => {
         .then((response) => {
           if (!response.ok) {
             setIsError(true);
+          } else {
+            setIsError(false);
           }
           return response.json();
         })
@@ -167,17 +169,31 @@ const LottoResults = () => {
               </tr>
             </thead>
             <tbody>
-              {lottoResults.map((result, index) => (
-                <tr key={index}>
-                  <td>{result.lotto.drawNumber}</td>
-                  <td>{result.lotto.drawDate}</td>
-                  <td>{result.lotto.drawTime}</td>
-                  <td>{result.lotto.lottoWinningNumbers.numbers.join(", ")}</td>
-                  <td>{result.lotto.lottoWinningNumbers.bonusBalls}</td>
-                  <td>{result.powerBall.powerballWinningNumber}</td>
-                  <td>{result.strike.strikeWinningNumbers.join(", ")}</td>
+              {lottoResults.length > 0 ? (
+                lottoResults.map((result, index) => (
+                  <tr key={index}>
+                    <td>{result.lotto.drawNumber}</td>
+                    <td>{result.lotto.drawDate}</td>
+                    <td>{result.lotto.drawTime}</td>
+                    <td>
+                      {result.lotto.lottoWinningNumbers.numbers.join(", ")}
+                    </td>
+                    <td>{result.lotto.lottoWinningNumbers.bonusBalls}</td>
+                    <td>{result.powerBall.powerballWinningNumber}</td>
+                    <td>{result.strike.strikeWinningNumbers.join(", ")}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td>{lottoResults.length}</td>
+                  <td>loading...</td>
+                  <td>loading...</td>
+                  <td>loading...</td>
+                  <td>loading...</td>
+                  <td>loading...</td>
+                  <td>loading...</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
